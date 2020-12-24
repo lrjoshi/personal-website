@@ -16,16 +16,33 @@ content:
   # Automatically link email and phone or display as text?
   autolink: true
   
-  # Email form provider
+  # # Email form provider
   form:
-    provider: formspree
-    formspree:
-        id: test
+  #   provider: formspree
+  #   formspree:
+  #       id: test
     netlify:
-      # Enable CAPTCHA challenge to reduce spam?
-      captcha: true
+  #     # Enable CAPTCHA challenge to reduce spam?
+       captcha: true
   
 design:
   columns: '2'
 ---
+
+
+<form name="contact" method="POST" data-netlify="true">
+  <p>
+    <label>Your Name: <input type="text" name="name" /></label>   
+  </p>
+  <p>
+    <label>Your Email: <input type="email" name="email" /></label>
+  </p>
+  
+  <p>
+    <label>Message: <textarea name="message"></textarea></label>
+  </p>
+  <p>
+    <button type="submit">Send</button>
+  </p>
+</form>
 
