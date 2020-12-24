@@ -1,0 +1,20 @@
+Package: OrfTxdb
+Title: Full genome of Orf Virus Strain IA82
+Description: Full genome of orf virus
+Version: 1.0.0
+Author: Delhon et al.
+Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
+Depends: BSgenome (>= 1.50.0)
+Imports: BSgenome
+Suggests: Orf.virus.NCBI
+License: Artistic-2.0
+organism: Orfv
+common_name: Orf virus
+provider: NCBI
+provider_version: 1.0.0
+release_date: Jan.2004
+release_name: Orf virus strain OV-IA82
+source_url: https://www.ncbi.nlm.nih.gov/nuccore/AY386263.1
+biocViews: AnnotationData, Genetics, BSgenome, AnnotationData, BSgenome
+NeedsCompilation: no
+Packaged: 2019-05-30 20:23:01 UTC; lokra_000

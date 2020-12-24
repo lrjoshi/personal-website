@@ -1,0 +1,52 @@
+---
+title: "Creating 96-Well Plates in R"
+author: "Lok Raj Joshi"
+date: '2018-07-23T21:13:14-05:00'
+categories: R
+tags:
+- R
+- Virus neutralization test
+---
+
+This week I did some virus neutralization test and I was wondering if there is any way to show the results in 96-well plate format. I was trying to find if there is any R package that can do this. Actually there is one (or might be more). I found a package called **platetools** that can plot values in plate format. 
+
+Let's see how I used this package.
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+# R Markdown
+
+First load all the required packages
+
+```{r warning=FALSE}
+library(ggplot2)
+library(platetools)
+library(viridis)
+```
+
+Prepare your datasets.I prepared in R as shown below. 
+
+
+
+```{r}
+data=read.csv("df.csv")
+data
+```
+
+Finally plot your data 
+```{r}
+plate_id <- rep(c("My Plate"), each = 96)
+
+z_grid(data = data$vals,
+       well = data$well,
+       plate_id = plate_id) +
+  ggtitle("Virus Neutralization Test")
+```
+
+Here, the label is not useful for me because I am interested only in positive and negative wells. But it can be useful in plotting ELISA plates. 
+
+

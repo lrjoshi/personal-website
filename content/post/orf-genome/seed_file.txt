@@ -1,0 +1,19 @@
+Package: OrfTxdb
+Title: Full genome of Orf Virus Strain IA82
+Description: Full genome of orf virus 
+Version: 1.0.0
+Suggests: Orf.virus.NCBI
+organism: Orfv
+Author: Delhon et al.
+common_name: Orf virus
+provider: NCBI
+provider_version: 1.0.0
+release_date: Jan.2004
+release_name: Orf virus strain OV-IA82
+BSgenomeObjname: Orfv virus
+source_url: https://www.ncbi.nlm.nih.gov/nuccore/AY386263.1
+organism_biocview: AnnotationData, BSgenome
+seqnames: c("orfv")
+SrcDataFiles: orfv.fasta
+seqfiles_suffix: .fasta
+seqs_srcdir: C:\Users\lokra_000\OneDrive\Github\OrfTxdb

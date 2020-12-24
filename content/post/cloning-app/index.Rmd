@@ -1,0 +1,40 @@
+---
+title: "Shiny App for Designing Primers for DNA Cloning"
+author: "Lok Raj Joshi"
+date: '2018-09-01T21:13:14-05:00'
+categories: R
+tags: -R shiny -PCR -Cloning
+---
+
+
+
+Cloning is one of the most widely used tool in molecular biology. Cloning primers typically contain target sequence and restriction site as overhang. Designing these primers manually can be time consuming and chances of errors are high. This [Shiny app](https://lokraj.shinyapps.io/cloningApp/)  is designed to automate primer designing process for DNA cloning.
+
+
+
+```{r echo=FALSE, warning=FALSE, error=FALSE}
+knitr::include_app("https://lokraj.shinyapps.io/cloningApp/",
+                   height = "600px")
+
+```
+
+Basically, what this app does is :
+
+1. For forward primer, it extracts sequences from 5 primer end. You can choose number of base pairs you want. Default is 22.
+
+2. For reverse primer, it extracts sequence from 3 prime end and reverse complements the sequence.
+
+3. Then it adds restriction sites to the 3' end of the primer. You can select among the list of more than 200 restriction enzymes. It uses a database from the New England Biolabs.  
+
+3. Then it adds 5 extra base pairs to the 3' end of the primers. 
+
+
+You also get some other useful information about your primer. This app will look for the restriction enzyme sequence within the DNA sequence that you enter. If the restriction site is present you will see a table showing the location of restriction sites. If the restricion site is not present, you will see an empty table. Also, you can see how the selected restrcion enzymes cut within their recognition sites.
+
+
+You can try app below.There is a sample DNA sequence for you to play around. Sometimes, you might find the app in idle state.You can activate it by clicking **Reload** button. 
+
+
+[Click here to visit app page](https://lokraj.shinyapps.io/cloningApp/) 
+
+Codes for this app are available on my [Github](https://github.com/lrjoshi/cloningApp).

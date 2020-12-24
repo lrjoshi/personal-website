@@ -1,0 +1,24 @@
+---
+title: "Shiny App for Designing Primers for DNA Cloning"
+author: "Lok Raj Joshi"
+date: '2018-09-01T21:13:14-05:00'
+categories: R
+tags: -R shiny -PCR -Cloning
+---
+
+
+
+<p>Cloning is one of the most widely used tool in molecular biology. Cloning primers typically contain target sequence and restriction site as overhang. Designing these primers manually can be time consuming and chances of errors are high. This <a href="https://lokraj.shinyapps.io/cloningApp/">Shiny app</a> is designed to automate primer designing process for DNA cloning.</p>
+<iframe src="https://lokraj.shinyapps.io/cloningApp/?showcase=0" width="672" height="600px">
+</iframe>
+<p>Basically, what this app does is :</p>
+<ol style="list-style-type: decimal">
+<li><p>For forward primer, it extracts sequences from 5 primer end. You can choose number of base pairs you want. Default is 22.</p></li>
+<li><p>For reverse primer, it extracts sequence from 3 prime end and reverse complements the sequence.</p></li>
+<li><p>Then it adds restriction sites to the 3’ end of the primer. You can select among the list of more than 200 restriction enzymes. It uses a database from the New England Biolabs.</p></li>
+<li><p>Then it adds 5 extra base pairs to the 3’ end of the primers.</p></li>
+</ol>
+<p>You also get some other useful information about your primer. This app will look for the restriction enzyme sequence within the DNA sequence that you enter. If the restriction site is present you will see a table showing the location of restriction sites. If the restricion site is not present, you will see an empty table. Also, you can see how the selected restrcion enzymes cut within their recognition sites.</p>
+<p>You can try app below.There is a sample DNA sequence for you to play around. Sometimes, you might find the app in idle state.You can activate it by clicking <strong>Reload</strong> button.</p>
+<p><a href="https://lokraj.shinyapps.io/cloningApp/">Click here to visit app page</a></p>
+<p>Codes for this app are available on my <a href="https://github.com/lrjoshi/cloningApp">Github</a>.</p>

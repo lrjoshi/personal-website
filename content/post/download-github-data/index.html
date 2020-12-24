@@ -1,0 +1,45 @@
+---
+title: "Download CSV into R Studio from Github"
+author: "Lok Raj Joshi"
+date: 2019-01-09T21:13:14-05:00
+categories: ["R"]
+tags: ["R"]
+---
+
+
+
+<p><strong>You can use “readr” package to download CSV file and R data file from the github.</strong></p>
+<p>Steps</p>
+<ol style="list-style-type: decimal">
+<li><p>Go to the github repository link where you have the CSV file</p></li>
+<li><p>Click on the <strong>raw</strong> option present on the top right of the data</p></li>
+<li><p>This will open a new window in the browser</p></li>
+<li><p>The link should be like <a href="https://raw.githubusercontent.com/.." class="uri">https://raw.githubusercontent.com/..</a></p></li>
+<li><p>You have to use this link to download csv file from the Github</p></li>
+</ol>
+<pre class="r"><code>library (readr)
+
+urlfile=&quot;https://raw.githubusercontent.com/lrjoshi/webpage/master/public/post/c159s.csv&quot;
+
+mydata&lt;-read_csv(url(urlfile))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Experiment = col_character(),
+##   Virus = col_character(),
+##   Cell = col_character(),
+##   MOI = col_double(),
+##   hpi = col_double(),
+##   Titer = col_double()
+## )</code></pre>
+<pre class="r"><code>#lets have a peek into the data
+head(mydata)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##   Experiment Virus Cell    MOI   hpi Titer
+##   &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 EXP I      C159S OFTu    0.1     0  4.75
+## 2 EXP I      C159S OFTu    0.1     6  2.75
+## 3 EXP I      C159S OFTu    0.1    12  2.75
+## 4 EXP I      C159S OFTu    0.1    24  5   
+## 5 EXP I      C159S OFTu    0.1    48  5.5 
+## 6 EXP I      C159S OFTu    0.1    72  7</code></pre>
+<p>You can use this method to dowload R data file from the github.</p>

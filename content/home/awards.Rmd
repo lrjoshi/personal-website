@@ -1,0 +1,64 @@
+---
+title: "Awards"
+author: "Lok Raj Joshi"
+date: '2015-07-23T21:13:14-05:00'
+categories: R
+tags:
+- awards
+- citations
+weight: 80
+---
+  
+
+
+
+### Awards
+
+***
+
+ >Travel award to attend Systems Biology of Infectious Disease Workshop, Scripps Inst. (2020)
+  
+>Diversity Schlorship from R Studio to attend rstusio::conf(2019)
+
+>SDSU Sigma XI Best PhD Paper Award (2018)
+
+>Bioimaging Contest-SDSU, Third Position (2018)
+
+>Best Oral Presentation Award, CRWAD Meeting (2016)
+
+>SDSU Sigma XI Grad Student Paper Award, Second Position (2016)
+
+>SDSU Sigma XI Grad Student Proposal Award,Second Position (2015)
+
+>First Award on National Level Story Writing Competition (2009),Radio Audio and USAID, Nepal
+
+>Merit Scholarship (2008-2013), Tribhuvan University Nepal
+
+>First Award on Essay Competition (2006), NIST College, Nepal
+
+***
+  
+  
+### Citations  
+
+***
+  
+```{r eval=T, echo=F, warning=FALSE,error=FALSE,message=FALSE }
+library (ggplot2)
+library(plotly)
+Year= c(2015,2016,2017,2018,2019,2020)
+Citations =c(4,6,32,46,88,114)
+
+data= data.frame(Year, Citations)
+
+p=ggplot(data,aes(x=Year,y=Citations))+
+  geom_bar(stat = 'identity',color="black",fill="lightblue",alpha=0.6)
+p=p+ggtitle("Citations per year (hover mouse over graph to see the numbers)") + 
+  theme(plot.title = element_text(lineheight=.5, face="bold"),
+        plot.background = element_blank(),
+        panel.background = element_blank(),
+  )          
+ggplotly(p)
+```
+
+***

@@ -1,0 +1,46 @@
+---
+date: "2020-07-12"
+title: "R package for pairwise gene comparision"
+author: "Lok Raj Joshi"
+diagram: true
+image:
+  caption: ''
+  placement: 3
+categories: Virus genome
+tags:
+- R shiny
+- PCR
+- Genes
+- Coronavirus
+---
+
+
+
+<p>This little package will help you to do perform a pairwise alignment of open reading frames of the two genomes. Generally, we use full genomes for pairwise comparison. Sometimes, it is interesting to look at the gene level to figure out where within the genome the variation is largest. If you have do this manually then you would extract each ORF from a genome and then do alignment one by one unless you have any specialized software that would do for you. This package will automate that process and the power actually comes from a file that is found on GenBank which we don’t pay attention to. For each genome you will find a coding sequence file that lists all the coding sequence in a multi fasta file. So, if you have two such files from the two genomes that you want to compare, this package will take those files as a input and then will give a nice table showing percent similrity among the genes.</p>
+<p>First, let’s see where can you find those coding sequence file. If you open a page for any genome on GenBank you will see a ‘send’ on the right-top part. Then, click on the ‘send’ , ‘coding sequence’ ,‘nucleotide’. That’s all you have conding sequence file on your computer.</p>
+<p>Now, install the package.</p>
+<pre class="r"><code>library (devtools)
+#install_github(&quot;lrjoshi/PairwiseGenesComparison&quot;)</code></pre>
+<p>Install dependencies</p>
+<pre class="r"><code>library (tidyverse)
+library (readr)
+library (seqinr)
+library (DECIPHER)
+library (formattable)
+library (PairwiseGenesComparison)</code></pre>
+<p>Then provide the file path. Run the function and you will get the nice table with pairwise comparison of genes.</p>
+<pre class="r"><code>file1 &lt;- paste(&quot;gene_comparison_data/SARS-Cov-2-Italy.txt&quot;)
+file2 &lt;- paste(&quot;gene_comparison_data/SARS-CoV-2-Wuhan.txt&quot;)
+#run funstion
+pairwise_genes_comparison(file1,file2)</code></pre>
+<p>Sample output</p>
+<p><img src="https://raw.githubusercontent.com/lrjoshi/PairwiseGenesComparison/master/Rplot.png"></p>
+<p>There are two important things that should be kept in mind.</p>
+<p>Identifier : This function uses “Gene” as an identifier to exract gene name from the fasta names. But, this is not consistent across different files. Other variations like locus tag, gene_id, protein_id are used to identify loci. So, there are two ways to get around this. Either you can replace locus_tag or gene_id with gene in your file. Or, you can change those keys within the package. Download the codes and change gene identifier in the line 154 and line 164. I have included a comment within the code, where the change needs to be made.</p>
+<p>Number of genes: Sometimes two strains does not have similar number of genes. Then the package will throw an error or it might not even run if the number of genes are not same. You can remove the genes that does not have pair. So, the number of genes are the same and they are paired properly. You can look at the final table to confirm if the pairs was not formed or not by looking the name of the gene. Gene_Name1 and Gene_Name2 should be identical or should refer to the same gene.</p>
+<p>Here is an expampe. Let’s take two HIV genomes. You can see that there is a difference in gene identifier. One is using locus lag and another is using protein ID. I changes the codes so that these names can be parsed properly. Remember, even if you don’t change this it will not affect the similarity value that you get in the table. The name will not be parsed properly and you will get full fasta header on the name and gene start and end location may not be parsed properly.</p>
+<p>These functions can be pulled into R Studio directly from the github.</p>
+<pre class="r"><code>  library (devtools)
+  library (tidyverse)
+  source_url(&quot;https://raw.githubusercontent.com/lrjoshi/FastaTabular/master/fasta_and_tabular.R&quot;)</code></pre>
+<p>Sample files and codes are present in my <a href="https://github.com/lrjoshi/FastaTabular">Github</a> repository.</p>

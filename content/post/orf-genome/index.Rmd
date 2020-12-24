@@ -1,0 +1,200 @@
+---
+title: "Working with the genome of non-model organism in R Bioconductor"
+categories: ["R"]
+date: 2019-08-05T21:13:14-05:00
+tags: ["Genome", "R", "BSgenome","GenomicFeatures"]
+---
+
+```{r setup, include=FALSE,eval=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+GenomicFeatures and BSgenome are two widely used packages for genomic data analysis in R Bioconductor. They have variety of functions to work with genome features. Unfortunately, there are only a limited species you can work with BSgenome. But, you can create Genome Features and BSgenome for your organism of choice if it is not packaged into BSgenome by default. 
+
+
+First let's create a taxonomic database using GenomicFeatures package. I am using [Orf virus](https://www.ncbi.nlm.nih.gov/nuccore/AY386263.1) as an example here . 
+
+First, download GFF3 file of the Orf virus from the Genebank. For some reason the GFF3 file downloaded from Genebank has to be modified using some awk commands. You can find the script [here](https://www.biostars.org/p/382165/). I want to acknowlege [SMK](https://www.biostars.org/u/33094/) for this solution.
+
+After you convert your GFF3 file into new GFF3 format and save it as orf.gff3. Then it is pretty straightforward to create taxonomic database.
+
+```{r message=FALSE, warnings=FALSE, eval=FALSE}
+library (GenomicFeatures)
+orf <- GenomicFeatures::makeTxDbFromGFF("content/post/orf.gff3",format="auto")
+orf
+```
+
+
+Then you have to save this database,so that you can call it in future without recreating it again. We will use  `saveDb()` to save database and `loadDb()` to load the database. We can use `AnnotationDbi` package fot this purpose. You will see a new file as `orf` in the working directory. 
+
+```{r message=FALSE, warnings=FALSE,eval=FALSE}
+library (AnnotationDbi)
+saveDb(orf,"orf")
+
+```
+
+
+As you can see we just created a taxonomic database for Orf virus. There are 130 CDS that have been extracted and you can use other functions as shown below.
+
+First load the database and then try different funtions. 
+
+```{r message=FALSE, warnings=FALSE,eval=FALSE}
+library (AnnotationDbi)
+orf <- loadDb(file="orf")
+#now check column names
+columns(orf)
+
+#extract genes
+genes <- genes(orf,"GENEID")
+head(genes)
+
+#if you want to see the intergeninc regions
+intergenic <- gaps (genes)
+
+head (intergenic)
+
+```
+
+So, you can extract anything from this genome. Look at the columnames to see what kind of information you can extract.
+
+
+This taxonomic database shows the postions where each gene or features are located within the genome. It does not actually contain any DNA sequence. To extract DNA sequence we need BSgenome package. Unfortunately, this virus or other viruses are not included in BSgenome package but the package allows you to make your own pakcage. This process is kown as "forging". So, lets try to forge BSgenome for our Orf virus, so that we can work with DNA sequence of this virus.
+
+
+This process involves a creating a src file that contains all the information about the genome. We will need fasta file of the genome, finally we will use command line tools to create a package. So, we will be creating a BSgenome package for Orf virus.
+
+Steps :
+
+First create a folder named `Orf`.
+
+Inside that folder create a folder called `src_seqdir`.
+
+Put your genome in `fasta` format inside that folder.
+
+Create a plain text file and keep following information.Change the parameters as you like or that makes sense according to the genome that you are working with.
+
+---
+
+Package: OrfTxdb
+
+Title: Full genome of Orf Virus Strain IA82
+
+Description: Full genome of orf virus 
+
+Version: 1.0.0
+
+Suggests: Orf.virus.NCBI
+
+organism: Orfv
+
+Author: Delhon et al.
+
+common_name: Orf virus
+
+provider: NCBI
+
+provider_version: 1.0.0
+
+release_date: Jan.2004
+
+release_name: Orf virus strain OV-IA82
+
+BSgenomeObjname: Orfv virus
+
+source_url: https://www.ncbi.nlm.nih.gov/nuccore/AY386263.1
+
+organism_biocview: AnnotationData, BSgenome
+
+seqnames: c("orfv")
+
+SrcDataFiles: orfv.fasta
+
+seqfiles_suffix: .fasta
+
+seqs_srcdir: C:\Users\lokra_000\OneDrive\Github\OrfTxdb
+
+
+---
+
+
+Then save this plain text file as `seed_file.txt`. Remember the package name. This will be the name of your package.
+
+Convert this plain file into DCF format in R. First read the file and then save it as DCF format.
+
+```{r message=FALSE, warnings=FALSE,eval=FALSE}
+my_file <- read.dcf("content/post/seed_file.txt", fields = NULL, all = FALSE, keep.white = NULL)
+write.dcf(my_file , file = "seed.dcf", append = FALSE, useBytes = FALSE,
+          indent = 0.1 * getOption("width"),
+          width = 0.9 * getOption("width"),
+          keep.white = NULL)
+
+```
+
+
+We will get `seed.dcf` file as an output. Now we are ready to forge. 
+
+
+```{r message=FALSE, warnings=FALSE,eval=FALSE}
+library (BSgenome)
+#remove diectory if already exixts, since I will be running this code repeatedly
+unlink(c("OrfTxdb"), recursive = TRUE, force = TRUE)
+
+#now create BSgenome package
+forgeBSgenomeDataPkg("seed.dcf")
+```
+
+It will create a new directory in the current directory. The name will be  `ORfTxdb` as we supplied this name on the seed file.
+
+
+
+Now we are ready to create package.
+
+---
+
+
+Go to the Terminal of the R Studio and navigate to the current folder.
+Enter following command
+
+
+
+`R CMD build OrfTxdb`
+
+Enter the name of the folder that was created above when by forgeBSgenomeDataPkg  function. This will create a tarball file of our package.In my case a new tar file called OrfTxdb_1.0.0.tar was created.
+
+Check if everything is okay with your package using following command in the terminal
+
+
+`R CMD check OrfTxdb_1.0.0.tar`
+
+
+If everything is correct, then install the package using follwing command:
+
+`R CMD install OrfTxdb_1.0.0.tar`
+
+---
+
+
+Now you can go back to R studio console and call this package. For example I named my package as `OrfTxdb`'. Lets use some functions on this package :
+
+```{r message=FALSE, warnings=FALSE, EVAL=FALSE}
+
+library (OrfTxdb)
+orf_genome <- OrfTxdb
+orf_genome
+organism(orf_genome)
+provider(orf_genome)
+
+#lets get the whome genome sequence
+getSeq(orf_genome)
+
+#lets extract the part of the geome
+getSeq(orf_genome,start=24,end=58)
+
+```
+
+
+So, there are other cool things that can be done using genome features and BSgenome. For example, we can get postions of all the promoter sequences from genome features and use those values to extract promoter sequences from the BSgenome. I will write a post how to do that, but there are already tutorials available. For now, if we want to get the files and folders used in this tutorial you can get them here in my [Github](https://github.com/lrjoshi/OrfTxdb).
+
+

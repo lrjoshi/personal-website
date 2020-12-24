@@ -1,0 +1,44 @@
+---
+title: "Download CSV into R Studio from Github"
+author: "Lok Raj Joshi"
+date: 2019-01-09T21:13:14-05:00
+categories: ["R"]
+tags: ["R"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**You can use "readr" package to download CSV file and R data file from the github.**
+
+Steps
+
+ 1. Go to the github repository link where you have the CSV file
+ 
+ 2. Click on the **raw** option present on the top right of the data
+ 
+ 3. This will open a new window in the browser
+ 
+ 4. The link should be like <https://raw.githubusercontent.com/..>
+ 
+ 5. You have to use this link to download csv file from the Github
+
+
+
+
+
+```{r}
+library (readr)
+
+urlfile="https://raw.githubusercontent.com/lrjoshi/webpage/master/public/post/c159s.csv"
+
+mydata<-read_csv(url(urlfile))
+
+
+#lets have a peek into the data
+head(mydata)
+
+```
+
+You can use this method to dowload R data file from the github.
