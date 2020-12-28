@@ -46,7 +46,7 @@ experience:
     description: |2-
         Responsibilities :
         
-        * Picronavirus pathogenesis
+        * Picornavirus pathogenesis
         * Senecavirus A evolution
         * Vectored vaccine development
         * Next generation sequencing 
