@@ -93,14 +93,14 @@ phone = ""
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {street = "235 Hungerford Hill Road", city = "Ithaca", region = "NY", postcode = "14850", country = "United States", country_code = "US"}
+address = {street = "400 Tech Square", city = "Cambridge", region = "MA", postcode = "02139", country = "United States", country_code = "US"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-coordinates = {latitude = "42.430229", longitude = "-76.454237"}
+coordinates = {latitude = "42.360229", longitude = "-71.094237"}
 
 # Directions for visitors to locate you.
-directions = "Room 115"
+directions = "9th Floor"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
@@ -267,7 +267,7 @@ plugins_js  = []
 ## Marketing
 ############################
 [marketing]
-  google_analytics = "G-79EZ3Y9ZRC"
+  google_analytics = ""
   google_tag_manager = ""
 
 ############################

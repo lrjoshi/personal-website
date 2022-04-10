@@ -1,5 +1,5 @@
 ---
-bio: My research interests include vectored vaccine development, viral pathogenesis, diagnostic assay development,reverse genetics, viral bioinformatics.
+bio: My research interests include AAV gene therapy, vectored vaccine development, viral pathogenesis, diagnostic assay development,reverse genetics, viral bioinformatics.
 education:
   courses:
   - course: PhD in Biological and Biomedical Sciences (Molecular Virology)
@@ -14,15 +14,17 @@ education:
 email: ""
 highlight_name: false
 interests:
+- AAV gene therapy
+- Viral immunology
 - Vaccine development 
 - Viral pathogenesis 
 - Diagnostic assay development
 - Viral Bioinformatics
 
 organizations:
-- name: Cornell University
-  url: https://www.cornell.edu/
-role: PhD Candidate
+- name: Ragon Institute of MGH MIT and HARVARD
+  url: https://www.ragoninstitute.org/
+role: Postdoctoral Research Fellow
 social:
 - icon: envelope
   icon_pack: fas
@@ -43,7 +45,7 @@ superuser: true
 title: Lok Raj Joshi
 ---
 
-I am Lok Raj Joshi, PhD candidate in [Diel Lab](https://www.diellab.net), Department of Population Medicine and Diagnostic Science, Cornell University. I have experience working with virus pathogensis,viral diagnostic assay and vectored-vaccine developement. I have deep interest in next-generation sequencing and genomic data analysis. 
+I am a postdoctoral research fellow at Ragon Institute of MGH MIT and Harvard. 
 
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
